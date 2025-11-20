@@ -1,0 +1,217 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/**
+ * Block Editor Styles
+ *
+ * Styles specific to the WordPress block editor (Gutenberg)
+ * These styles are applied in the editor to match the frontend appearance
+ */
+
+/* Editor Container */
+.block-editor-writing-flow {
+  max-width: 100%;
+}
+
+/* Typography in Editor */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  @apply font-bold text-secondary-900 leading-tight;
+}
+
+.editor-styles-wrapper h1 {
+  @apply text-4xl;
+}
+
+.editor-styles-wrapper h2 {
+  @apply text-3xl;
+}
+
+.editor-styles-wrapper h3 {
+  @apply text-2xl;
+}
+
+.editor-styles-wrapper h4 {
+  @apply text-xl;
+}
+
+.editor-styles-wrapper h5 {
+  @apply text-lg;
+}
+
+.editor-styles-wrapper h6 {
+  @apply text-base;
+}
+
+.editor-styles-wrapper p {
+  @apply text-base leading-relaxed;
+}
+
+.editor-styles-wrapper a {
+  @apply text-primary-600 no-underline hover:text-primary-700 hover:underline;
+}
+
+/* Lists */
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ol {
+  @apply list-inside space-y-2;
+}
+
+.editor-styles-wrapper ul {
+  @apply list-disc;
+}
+
+.editor-styles-wrapper ol {
+  @apply list-decimal;
+}
+
+/* Blockquotes */
+.editor-styles-wrapper blockquote {
+  @apply border-l-4 border-primary-600 pl-6 italic py-4 text-secondary-700;
+}
+
+/* Code */
+.editor-styles-wrapper code {
+  @apply bg-secondary-100 text-secondary-900 rounded px-2 py-1 font-mono text-sm;
+}
+
+.editor-styles-wrapper pre {
+  @apply bg-secondary-100 rounded p-4 overflow-x-auto;
+}
+
+.editor-styles-wrapper pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+/* Images */
+.editor-styles-wrapper img {
+  @apply max-w-full h-auto rounded-lg;
+}
+
+.wp-block-image {
+  @apply mb-4;
+}
+
+.wp-block-image img {
+  @apply rounded-lg shadow-md;
+}
+
+.wp-block-image figcaption {
+  @apply text-sm text-secondary-600 italic mt-2;
+}
+
+/* Buttons in Editor */
+.wp-block-buttons .wp-block-button__link {
+  @apply inline-block px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg;
+  @apply hover:bg-primary-700 transition-colors duration-200;
+}
+
+/* Separators */
+.wp-block-separator {
+  @apply border-0 border-t-2 border-secondary-200 my-8;
+}
+
+/* Table Styles */
+.editor-styles-wrapper table {
+  @apply w-full border-collapse;
+}
+
+.editor-styles-wrapper thead {
+  @apply bg-secondary-100;
+}
+
+.editor-styles-wrapper th,
+.editor-styles-wrapper td {
+  @apply border border-secondary-200 px-4 py-2 text-left;
+}
+
+/* Quote Block */
+.wp-block-quote {
+  @apply border-l-4 border-primary-600 pl-6 italic py-4 text-secondary-700;
+}
+
+.wp-block-quote p {
+  @apply text-lg;
+}
+
+.wp-block-quote cite {
+  @apply not-italic text-secondary-600;
+}
+
+/* Cover Block */
+.wp-block-cover {
+  @apply rounded-lg overflow-hidden;
+}
+
+/* Columns */
+.wp-block-columns {
+  @apply gap-6;
+}
+
+/* Group / Container Blocks */
+.wp-block-group {
+  @apply w-full;
+}
+
+/* Gallery Block */
+.wp-block-gallery {
+  @apply gap-4;
+}
+
+.wp-block-gallery img {
+  @apply rounded-lg;
+}
+
+/* Latest Posts Block */
+.wp-block-latest-posts {
+  @apply list-none;
+}
+
+.wp-block-latest-posts li {
+  @apply mb-4;
+}
+
+.wp-block-latest-posts a {
+  @apply text-primary-600 hover:text-primary-700 no-underline;
+}
+
+/* Categories Block */
+.wp-block-categories {
+  @apply list-none;
+}
+
+.wp-block-categories li {
+  @apply mb-2;
+}
+
+/* Social Links Block */
+.wp-block-social-links {
+  @apply flex gap-4;
+}
+
+.wp-block-social-links a {
+  @apply inline-flex items-center justify-center w-12 h-12 bg-secondary-100 rounded-lg;
+  @apply hover:bg-primary-100 transition-colors duration-200;
+}
+
+/* Spacer Block */
+.wp-block-spacer {
+  display: block;
+}
+
+/* Accessibility - Focus Indicators */
+.wp-block button:focus,
+.wp-block a:focus {
+  @apply outline-2 outline-offset-2 outline-primary-600;
+}
+
+/* Print Styles */
+@media print {
+  .wp-block-buttons {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.3/theme.json",
+  "version": 2,
+  "title": "Shagan Plaatjies Theme",
+  "description": "A modern, custom WordPress theme built with Roots Sage, Tailwind CSS, and Laravel Mix",
+  "customTemplates": [],
+  "templateParts": [],
+  "settings": {
+    "appearance": {
+      "brandColors": true
+    },
+    "border": {
+      "radius": true,
+      "width": true
+    },
+    "color": {
+      "background": true,
+      "custom": true,
+      "customDuotone": true,
+      "customGradient": true,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "duotone": [
+        {
+          "colors": ["#000000", "#ffffff"],
+          "name": "Grayscale",
+          "slug": "grayscale"
+        }
+      ],
+      "gradients": [
+        {
+          "color1": "#0ea5e9",
+          "color2": "#0369a1",
+          "name": "Blue Gradient",
+          "slug": "blue-gradient"
+        }
+      ],
+      "palette": [
+        {
+          "color": "#ffffff",
+          "name": "White",
+          "slug": "white"
+        },
+        {
+          "color": "#0f172a",
+          "name": "Dark",
+          "slug": "dark"
+        },
+        {
+          "color": "#0ea5e9",
+          "name": "Primary",
+          "slug": "primary"
+        },
+        {
+          "color": "#64748b",
+          "name": "Secondary",
+          "slug": "secondary"
+        },
+        {
+          "color": "#f59e0b",
+          "name": "Accent",
+          "slug": "accent"
+        },
+        {
+          "color": "#ef4444",
+          "name": "Red",
+          "slug": "red"
+        },
+        {
+          "color": "#22c55e",
+          "name": "Green",
+          "slug": "green"
+        }
+      ],
+      "text": true
+    },
+    "dimensions": {
+      "aspectRatios": true,
+      "minHeight": true
+    },
+    "layout": {
+      "contentSize": "65rem",
+      "wideSize": "90rem"
+    },
+    "spacing": {
+      "blockGap": true,
+      "margin": true,
+      "padding": true,
+      "spacingSizes": [
+        {
+          "size": "0.5rem",
+          "name": "1",
+          "slug": "1"
+        },
+        {
+          "size": "1rem",
+          "name": "2",
+          "slug": "2"
+        },
+        {
+          "size": "1.5rem",
+          "name": "3",
+          "slug": "3"
+        },
+        {
+          "size": "2rem",
+          "name": "4",
+          "slug": "4"
+        },
+        {
+          "size": "2.5rem",
+          "name": "5",
+          "slug": "5"
+        },
+        {
+          "size": "3rem",
+          "name": "6",
+          "slug": "6"
+        }
+      ],
+      "spacingScale": {
+        "increment": 0.5,
+        "mediumUnit": "rem",
+        "steps": 7,
+        "unit": "rem"
+      }
+    },
+    "typography": {
+      "customFontSize": true,
+      "dropCap": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+          "name": "System Font",
+          "slug": "system-font"
+        }
+      ],
+      "fontSizes": [
+        {
+          "fluid": {
+            "max": "0.875rem",
+            "min": "0.75rem"
+          },
+          "name": "Small",
+          "size": "0.875rem",
+          "slug": "small"
+        },
+        {
+          "fluid": {
+            "max": "1rem",
+            "min": "0.875rem"
+          },
+          "name": "Base",
+          "size": "1rem",
+          "slug": "base"
+        },
+        {
+          "fluid": {
+            "max": "1.5rem",
+            "min": "1.125rem"
+          },
+          "name": "Large",
+          "size": "1.5rem",
+          "slug": "large"
+        },
+        {
+          "fluid": {
+            "max": "2.25rem",
+            "min": "1.875rem"
+          },
+          "name": "X-Large",
+          "size": "2.25rem",
+          "slug": "x-large"
+        },
+        {
+          "fluid": {
+            "max": "3rem",
+            "min": "2.25rem"
+          },
+          "name": "XX-Large",
+          "size": "3rem",
+          "slug": "xx-large"
+        }
+      ],
+      "lineHeights": {
+        "default": "1.5",
+        "heading": "1.1",
+        "tight": "1.1"
+      }
+    }
+  },
+  "styles": {
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": "0.375rem"
+        },
+        "color": {
+          "background": "#0ea5e9",
+          "text": "#ffffff"
+        },
+        "spacing": {
+          "padding": {
+            "bottom": "0.75rem",
+            "left": "1.5rem",
+            "right": "1.5rem",
+            "top": "0.75rem"
+          }
+        },
+        "typography": {
+          "fontWeight": "600"
+        }
+      },
+      "core/heading": {
+        "color": {
+          "text": "#0f172a"
+        },
+        "typography": {
+          "fontWeight": "700",
+          "lineHeight": "1.1"
+        }
+      },
+      "core/image": {
+        "border": {
+          "radius": "0.5rem"
+        }
+      },
+      "core/paragraph": {
+        "typography": {
+          "lineHeight": "1.6"
+        }
+      },
+      "core/quote": {
+        "border": {
+          "left": {
+            "color": "#0ea5e9",
+            "style": "solid",
+            "width": "4px"
+          }
+        },
+        "color": {
+          "text": "#475569"
+        },
+        "spacing": {
+          "padding": {
+            "left": "1.5rem"
+          }
+        },
+        "typography": {
+          "fontStyle": "italic"
+        }
+      },
+      "core/separator": {
+        "border": {
+          "top": {
+            "color": "#e2e8f0",
+            "style": "solid",
+            "width": "1px"
+          }
+        },
+        "spacing": {
+          "margin": {
+            "bottom": "2rem",
+            "top": "2rem"
+          }
+        }
+      }
+    },
+    "color": {
+      "background": "#ffffff",
+      "text": "#0f172a"
+    },
+    "spacing": {
+      "blockGap": "1.5rem"
+    },
+    "typography": {
+      "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "fontSize": "1rem",
+      "lineHeight": "1.5"
+    }
+  }
+}

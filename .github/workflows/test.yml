@@ -1,0 +1,125 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - stg
+  pull_request:
+    branches:
+      - main
+      - dev
+      - stg
+
+jobs:
+  php-tests:
+    name: PHP Tests and CodeSniffer
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.0', '8.1', '8.2']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl
+          coverage: xdebug
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPUnit tests
+        run: composer test
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+
+      - name: Run PHP CodeSniffer
+        run: ./vendor/bin/phpcs --standard=PSR2 --exclude=Generic.WhiteSpace.DisallowTabIndent app/
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+        continue-on-error: true
+
+  javascript-tests:
+    name: JavaScript Tests and Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: ./app/bedrock/web/app/themes/shaganplaatjies/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+        continue-on-error: true
+
+      - name: Check Prettier formatting
+        run: npx prettier --check resources/js
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+        continue-on-error: true
+
+      - name: Run Jest tests
+        run: npm run jest
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+        continue-on-error: true
+
+      - name: Build assets
+        run: npm run production
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./app/bedrock/web/app/themes/shaganplaatjies/coverage.xml
+        continue-on-error: true
+
+  security:
+    name: Security Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Check for vulnerable dependencies
+        run: composer audit
+        continue-on-error: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Check for npm vulnerabilities
+        run: npm audit
+        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
+        continue-on-error: true

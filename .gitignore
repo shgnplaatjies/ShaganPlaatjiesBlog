@@ -47,16 +47,27 @@ wp-config.php
 # uncomment the next line
 #/wp-content/themes
 
-# Ignore Composer dependencies
+# ========================
+# SHARED HOSTING DEPLOYMENT CONFIGURATION
+# ========================
+# The /vendor directory is COMMITTED for shared hosting
+# The /dist directory is COMMITTED for shared hosting
+# The package-lock.json is COMMITTED for reproducibility
+
+# ONLY IGNORE at root level
 /vendor
 
-# Ignore Node.js dependencies
+# Ignore Node.js dependencies globally
 node_modules
 /public
 
 # Ignore local environment files
 .env
-.env.*
+.env.local
+.env.*.local
+.env.staging
+
+# DO NOT IGNORE .env.production - needed for shared hosting
 
 # Local by Flywheel files
 *.sql
@@ -72,7 +83,6 @@ Thumbs.db
 
 # Log files and databases
 *.log
-*.sql
 *.sqlite
 
 # Yarn files
@@ -82,9 +92,39 @@ Thumbs.db
 !.yarn/sdks
 !.yarn/versions
 
-# Sage generated files
-public
-
 # Exclude the local environment specific files
 local-exports
 local-backup
+
+# ========================
+# THEME-SPECIFIC IGNORES
+# ========================
+
+# Theme source assets - only node_modules ignored
+app/bedrock/web/app/themes/shaganplaatjies/node_modules/
+app/bedrock/web/app/themes/shaganplaatjies/composer.lock
+
+# Test coverage reports
+app/bedrock/web/app/themes/shaganplaatjies/coverage/
+app/bedrock/web/app/themes/shaganplaatjies/coverage.xml
+app/bedrock/web/app/themes/shaganplaatjies/.phpunit.cache/
+
+# Jest cache
+app/bedrock/web/app/themes/shaganplaatjies/.jest-cache/
+
+# IDE specific files
+app/bedrock/web/app/themes/shaganplaatjies/.vscode/
+app/bedrock/web/app/themes/shaganplaatjies/.idea/
+app/bedrock/web/app/themes/shaganplaatjies/*.swp
+app/bedrock/web/app/themes/shaganplaatjies/*.swo
+app/bedrock/web/app/themes/shaganplaatjies/*~
+
+# Environment override files
+app/bedrock/web/app/themes/shaganplaatjies/.env.local
+app/bedrock/web/app/themes/shaganplaatjies/.env.*.local
+
+# NOTE: The following ARE committed for shared hosting deployment:
+# - app/bedrock/web/app/themes/shaganplaatjies/dist/
+# - app/bedrock/web/app/themes/shaganplaatjies/vendor/
+# - app/bedrock/web/app/themes/shaganplaatjies/mix-manifest.json
+# - app/bedrock/web/app/themes/shaganplaatjies/package-lock.json
