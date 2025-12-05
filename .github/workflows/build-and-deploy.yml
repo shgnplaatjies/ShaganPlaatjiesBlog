@@ -76,7 +76,7 @@ jobs:
         run: |
           echo "Checking compiled assets..."
           ls -lah dist/
-          ls -la mix-manifest.json
+          ls -la dist/mix-manifest.json
 
       # ==========================================
       # COMPOSER SETUP (For Shared Hosting)
@@ -121,7 +121,6 @@ jobs:
           commit_user_email: 'actions@github.com'
           file_pattern: |
             app/bedrock/web/app/themes/shaganplaatjies/dist/**
-            app/bedrock/web/app/themes/shaganplaatjies/mix-manifest.json
             app/bedrock/vendor/
           status_options: '--porcelain'
           skip_dirty_check: false
