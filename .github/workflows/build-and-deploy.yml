@@ -135,14 +135,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to Production via FTP
+      - name: Deploy theme to staging
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           protocol: ftps
-          server-dir: /
+          server-dir: /wp-content/themes/shaganplaatjies/
+          local-dir: ./app/bedrock/web/app/themes/shaganplaatjies/
           timeout: ${{ secrets.FTP_TIMEOUT }}
           exclude: |
             **/.git*
@@ -164,3 +165,4 @@ jobs:
             **/composer.lock
             **/webpack.mix.js
             **/tailwind.config.js
+            **/resources/**
