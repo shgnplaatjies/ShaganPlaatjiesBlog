@@ -104,34 +104,24 @@ jobs:
 
       - name: Run PHP tests
         working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
-        run: composer test
+        run: |
+          if [ -f "composer.json" ] && grep -q "\"test\"" composer.json; then
+            composer test
+          else
+            echo "No PHP tests configured, skipping..."
+          fi
         continue-on-error: true
 
       # ==========================================
-      # COMMIT COMPILED ASSETS (Critical for Shared Hosting)
+      # BUILD SUMMARY
       # ==========================================
 
-      - name: Commit compiled assets
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Build: Compile assets for production deployment"
-          commit_options: '--no-verify --signoff'
-          commit_user_name: 'GitHub Actions Bot'
-          commit_user_email: 'actions@github.com'
-          file_pattern: |
-            app/bedrock/web/app/themes/shaganplaatjies/dist/**
-            app/bedrock/vendor/
-          status_options: '--porcelain'
-          skip_dirty_check: false
-          create_branch: false
-
-      - name: Verify assets were committed
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Build summary
         run: |
-          echo "Checking git status after auto-commit..."
-          git status
-          echo "Committed assets ready for deployment!"
+          echo "✓ Assets compiled successfully"
+          echo "✓ Vendor dependencies installed"
+          echo ""
+          echo "Note: Commit the dist/ and vendor/ folders manually to deploy"
 
   security:
     name: Security Checks
