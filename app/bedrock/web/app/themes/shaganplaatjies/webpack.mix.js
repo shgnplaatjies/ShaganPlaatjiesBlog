@@ -37,9 +37,7 @@ mix.postCss('resources/css/editor.css', 'dist/css', [
  *
  * Bundle and transpile JavaScript with Webpack
  */
-mix.js('resources/js/app.js', 'dist/js')
-    .vue()
-    .babel();
+mix.js('resources/js/app.js', 'dist/js');
 
 /**
  * Source Maps

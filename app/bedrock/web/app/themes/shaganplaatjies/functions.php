@@ -65,8 +65,16 @@ function enqueue_assets() {
             'nonce' => wp_create_nonce('shaganplaatjies-nonce'),
         ]
     );
+}
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets');
 
-    // Enqueue block editor styles
+/**
+ * Enqueue block editor styles
+ */
+function enqueue_editor_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+    $cache_bust = defined('WP_DEBUG') && WP_DEBUG ? time() : $theme_version;
+
     wp_enqueue_style(
         'shaganplaatjies-editor',
         get_template_directory_uri() . '/dist/css/editor.css',
@@ -74,8 +82,7 @@ function enqueue_assets() {
         $cache_bust
     );
 }
-add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets');
-add_action('enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_assets');
+add_action('enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_editor_assets');
 
 /**
  * Theme Initialization Hook

@@ -123,7 +123,7 @@ select {
 }
 
 textarea {
-  @apply resize-vertical;
+  @apply resize-y;
 }
 
 /* Buttons */
@@ -177,7 +177,8 @@ textarea {
   }
 
   p {
-    @apply orphans-3 widows-3;
+    orphans: 3;
+    widows: 3;
   }
 }
 
