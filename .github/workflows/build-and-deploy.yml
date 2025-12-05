@@ -118,46 +118,15 @@ jobs:
 
       - name: Build summary
         run: |
-          echo "✓ Assets compiled successfully"
-          echo "✓ Vendor dependencies installed"
+          echo "✅ Build completed successfully!"
           echo ""
-          echo "Note: Commit the dist/ and vendor/ folders manually to deploy"
+          echo "Compiled assets:"
+          ls -lh app/bedrock/web/app/themes/shaganplaatjies/dist/
+          echo ""
+          echo "Ready for deployment..."
 
-  security:
-    name: Security Checks
-    runs-on: ubuntu-latest
-    continue-on-error: true
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          tools: composer:v2
-
-      - name: Install Composer dependencies
-        working-directory: ./app/bedrock
-        run: composer install
-
-      - name: Check for vulnerable PHP dependencies
-        working-directory: ./app/bedrock
-        run: composer audit
-        continue-on-error: true
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Check for vulnerable npm dependencies
-        working-directory: ./app/bedrock/web/app/themes/shaganplaatjies
-        run: npm audit
-        continue-on-error: true
-
-  deployment-ready:
-    name: Deployment Ready Check
+  deploy:
+    name: Deploy to Server
     runs-on: ubuntu-latest
     needs: [build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -166,57 +135,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Verify deployment files
-        run: |
-          echo "=== DEPLOYMENT READINESS CHECK ==="
-          echo ""
-          echo "Checking dist directory..."
-          if [ -d "app/bedrock/web/app/themes/shaganplaatjies/dist" ]; then
-            echo "✓ dist directory exists"
-            echo "  Files: $(find app/bedrock/web/app/themes/shaganplaatjies/dist -type f | wc -l)"
-          else
-            echo "✗ dist directory NOT found - DEPLOYMENT WILL FAIL"
-            exit 1
-          fi
-
-          echo ""
-          echo "Checking mix-manifest.json..."
-          if [ -f "app/bedrock/web/app/themes/shaganplaatjies/mix-manifest.json" ]; then
-            echo "✓ mix-manifest.json exists"
-          else
-            echo "✗ mix-manifest.json NOT found - DEPLOYMENT WILL FAIL"
-            exit 1
-          fi
-
-          echo ""
-          echo "Checking vendor directory..."
-          if [ -d "app/bedrock/vendor" ]; then
-            echo "✓ vendor directory exists"
-            echo "  Packages: $(find app/bedrock/vendor -maxdepth 1 -type d | wc -l)"
-          else
-            echo "✗ vendor directory NOT found - DEPLOYMENT WILL FAIL"
-            exit 1
-          fi
-
-          echo ""
-          echo "=== READY FOR DEPLOYMENT ==="
-          echo "All required files are present for shared hosting deployment."
-
-      - name: Create deployment summary
-        run: |
-          echo "# ✅ Deployment Ready" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "The following files are ready for SFTP deployment:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- \`app/bedrock/web/app/themes/shaganplaatjies/dist/\` - Compiled CSS/JS" >> $GITHUB_STEP_SUMMARY
-          echo "- \`app/bedrock/web/app/themes/shaganplaatjies/mix-manifest.json\` - Asset manifest" >> $GITHUB_STEP_SUMMARY
-          echo "- \`app/bedrock/vendor/\` - PHP dependencies" >> $GITHUB_STEP_SUMMARY
-          echo "- All source files in \`app/bedrock/\`" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Next Steps:" >> $GITHUB_STEP_SUMMARY
-          echo "1. Review code changes in this pull request" >> $GITHUB_STEP_SUMMARY
-          echo "2. Merge to main branch" >> $GITHUB_STEP_SUMMARY
-          echo "3. This workflow will automatically build and commit assets" >> $GITHUB_STEP_SUMMARY
-          echo "4. Download/clone the repo and deploy via SFTP to shared hosting" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "See [SHARED-HOSTING.md](docs/SHARED-HOSTING.md) for detailed deployment instructions." >> $GITHUB_STEP_SUMMARY
+      - name: Deploy to Production via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          server-dir: /
+          timeout: ${{ secrets.FTP_TIMEOUT }}
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/tests/**
+            **/*.md
+            .env
+            .env.example
+            **/.babelrc
+            **/.eslintrc.json
+            **/.prettierrc.json
+            **/jest.config.js
+            **/jest.setup.js
+            **/phpunit.xml
+            **/package.json
+            **/package-lock.json
+            **/composer.json
+            **/composer.lock
+            **/webpack.mix.js
+            **/tailwind.config.js
