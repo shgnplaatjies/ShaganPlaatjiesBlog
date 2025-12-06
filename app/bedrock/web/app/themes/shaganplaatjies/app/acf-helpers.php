@@ -146,12 +146,12 @@ function the_field_filtered($field_name, $post_id = false, $filter = 'wp_kses_po
  * Create ACF options pages for theme-wide settings
  */
 function register_acf_options_pages() {
-    if (!is_acf_active()) {
+    if (!is_acf_active() || !function_exists('acf_add_options_page')) {
         return;
     }
 
     // Theme Settings page
-    acf_add_options_page([
+    \acf_add_options_page([
         'page_title' => esc_html__('Theme Settings', 'shaganplaatjies'),
         'menu_title' => esc_html__('Theme Settings', 'shaganplaatjies'),
         'menu_slug' => 'theme-settings',
@@ -161,7 +161,7 @@ function register_acf_options_pages() {
     ]);
 
     // Styling Options page
-    acf_add_options_sub_page([
+    \acf_add_options_sub_page([
         'page_title' => esc_html__('Styling Options', 'shaganplaatjies'),
         'menu_title' => esc_html__('Styling', 'shaganplaatjies'),
         'parent_slug' => 'theme-settings',
