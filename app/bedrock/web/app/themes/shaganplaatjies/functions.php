@@ -38,12 +38,13 @@ bootstrap();
 function get_theme_config($key) {
     $defaults = [
         'key' => 'shaganplaatjies',
-        'name' => 'Your Theme Name',
+        'name' => 'Shagan Plaatjies',
     ];
 
+    // Check if env() function exists (Bedrock) or use defaults (traditional WordPress)
     $config = [
-        'key' => env('THEME_KEY', $defaults['key']),
-        'name' => env('THEME_NAME', $defaults['name']),
+        'key' => function_exists('env') ? env('THEME_KEY', $defaults['key']) : $defaults['key'],
+        'name' => function_exists('env') ? env('THEME_NAME', $defaults['name']) : $defaults['name'],
     ];
 
     return $config[$key] ?? $defaults[$key];
