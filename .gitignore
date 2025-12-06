@@ -32,8 +32,9 @@ wp-config.php
 # Log files
 *.log
 
-# htaccess
+# htaccess (allow in web directory for deployment)
 /.htaccess
+!app/bedrock/web/.htaccess
 
 # All plugins
 #

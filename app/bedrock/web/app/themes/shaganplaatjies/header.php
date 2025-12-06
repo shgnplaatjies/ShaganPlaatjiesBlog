@@ -20,9 +20,7 @@
                 <?php
                 $description = get_bloginfo('description', 'display');
                 if ($description) {
-                    ?>
-                    <p class="text-sm text-gray-600 mt-1"><?php echo esc_html($description); ?></p>
-                    <?php
+                    echo '<p class="text-sm text-gray-600 mt-1">' . esc_html($description) . '</p>';
                 }
                 ?>
             </div>

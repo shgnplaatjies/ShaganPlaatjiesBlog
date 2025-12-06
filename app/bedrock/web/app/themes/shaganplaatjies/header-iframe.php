@@ -6,7 +6,6 @@
     <?php wp_head(); ?>
 
     <style>
-        /* Remove all default WordPress margins/padding for iframe */
         html, body {
             margin: 0;
             padding: 0;
@@ -14,7 +13,6 @@
             height: 100%;
         }
 
-        /* WordPress admin bar adjustment */
         #wpadminbar {
             position: fixed !important;
             z-index: 99999;

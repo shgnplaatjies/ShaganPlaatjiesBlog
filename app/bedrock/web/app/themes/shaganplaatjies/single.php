@@ -3,12 +3,25 @@
  * Template for displaying single posts - Iframe Wrapper
  */
 
-// Get the current URL path
-$current_path = $_SERVER['REQUEST_URI'];
-$client_app_url = get_theme_mod('client_app_url', 'http://localhost:3000');
+$post_type = get_post_type();
+$post_slug = get_post_field('post_name');
+$client_app_url = get_theme_mod('client_app_url', 'https://localhost:3000');
 
-// Build the iframe URL
-$iframe_url = rtrim($client_app_url, '/') . $current_path;
+$route_prefix = '';
+switch ($post_type) {
+    case 'post':
+        $route_prefix = '/posts';
+        break;
+    case 'project':
+        $route_prefix = '/projects';
+        break;
+    default:
+        $route_prefix = '/' . $post_type . 's';
+        break;
+}
+
+$iframe_path = $route_prefix . '/' . $post_slug;
+$iframe_url = rtrim($client_app_url, '/') . $iframe_path;
 
 get_header('iframe');
 ?>
@@ -30,8 +43,10 @@ get_header('iframe');
 
     window.addEventListener('message', function(event) {
         const allowedOrigins = [
+            'https://localhost:3000',
             'http://localhost:3000',
-            'https://yourportfolio.com'
+            'https://staging.shaganplaatjies.co.za',
+            'https://shaganplaatjies.co.za'
         ];
 
         if (!allowedOrigins.includes(event.origin)) return;
@@ -48,10 +63,10 @@ get_header('iframe');
             data: {
                 homeUrl: '<?php echo esc_js(home_url()); ?>',
                 restUrl: '<?php echo esc_js(rest_url()); ?>',
-                currentPath: '<?php echo esc_js($current_path); ?>',
-                postType: '<?php echo esc_js(get_post_type()); ?>',
+                currentPath: '<?php echo esc_js($iframe_path); ?>',
+                postType: '<?php echo esc_js($post_type); ?>',
                 postId: <?php echo get_the_ID(); ?>,
-                slug: '<?php echo esc_js(get_post_field('post_name')); ?>'
+                slug: '<?php echo esc_js($post_slug); ?>'
             }
         }, '<?php echo esc_js($client_app_url); ?>');
     });

@@ -135,6 +135,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Deploy .htaccess to staging
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          server-dir: /
+          local-dir: ./app/bedrock/web/
+          timeout: ${{ secrets.FTP_TIMEOUT }}
+          exclude: |
+            **/*
+            !.htaccess
+
       - name: Deploy theme to staging
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

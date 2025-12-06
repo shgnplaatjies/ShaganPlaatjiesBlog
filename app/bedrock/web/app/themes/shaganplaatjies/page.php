@@ -3,11 +3,9 @@
  * Template for displaying pages - Iframe Wrapper
  */
 
-// Get the current URL path to pass to the client app
 $current_path = $_SERVER['REQUEST_URI'];
-$client_app_url = get_theme_mod('client_app_url', 'http://localhost:3000');
+$client_app_url = get_theme_mod('client_app_url', 'https://localhost:3000');
 
-// Build the iframe URL
 $iframe_url = rtrim($client_app_url, '/') . $current_path;
 
 get_header('iframe');
@@ -30,8 +28,10 @@ get_header('iframe');
 
     window.addEventListener('message', function(event) {
         const allowedOrigins = [
+            'https://localhost:3000',
             'http://localhost:3000',
-            'https://yourportfolio.com'
+            'https://staging.shaganplaatjies.co.za',
+            'https://shaganplaatjies.co.za'
         ];
 
         if (!allowedOrigins.includes(event.origin)) return;
