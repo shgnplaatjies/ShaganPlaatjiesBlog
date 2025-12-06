@@ -163,3 +163,30 @@ function allow_svg_upload($mimes) {
     return $mimes;
 }
 add_filter('upload_mimes', __NAMESPACE__ . '\\allow_svg_upload');
+
+/**
+ * Register Theme Customizer Settings
+ *
+ * Add client app URL setting for iframe integration
+ */
+function register_theme_customizer($wp_customize) {
+    // Add section for iframe settings
+    $wp_customize->add_section('iframe_settings', [
+        'title' => esc_html__('Client App Settings', 'shaganplaatjies'),
+        'priority' => 30,
+    ]);
+
+    // Client app URL setting
+    $wp_customize->add_setting('client_app_url', [
+        'default' => 'http://localhost:3000',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+
+    $wp_customize->add_control('client_app_url', [
+        'label' => esc_html__('Client App URL', 'shaganplaatjies'),
+        'description' => esc_html__('URL of your React/Next.js app (e.g., http://localhost:3000 or https://yourportfolio.com)', 'shaganplaatjies'),
+        'section' => 'iframe_settings',
+        'type' => 'url',
+    ]);
+}
+add_action('customize_register', __NAMESPACE__ . '\\register_theme_customizer');
