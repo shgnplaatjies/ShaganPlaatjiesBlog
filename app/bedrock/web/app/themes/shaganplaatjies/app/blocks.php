@@ -5,7 +5,7 @@
  * Register custom block types and configure block editor settings
  */
 
-namespace Shaganplaatjies\Blocks;
+namespace ShaganPlaatjies\Blocks;
 
 /**
  * Register Custom Block Types

@@ -5,7 +5,7 @@
  * Test theme setup and initialization functions
  */
 
-namespace Shaganplaatjies\Tests\Unit;
+namespace ShaganPlaatjies\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
@@ -44,9 +44,9 @@ class SetupTest extends TestCase
      */
     public function it_has_acf_helper_functions()
     {
-        $this->assertTrue(function_exists('\\Shaganplaatjies\\is_acf_active'));
-        $this->assertTrue(function_exists('\\Shaganplaatjies\\get_field_safe'));
-        $this->assertTrue(function_exists('\\Shaganplaatjies\\get_theme_option'));
+        $this->assertTrue(function_exists('\\ShaganPlaatjies\\is_acf_active'));
+        $this->assertTrue(function_exists('\\ShaganPlaatjies\\get_field_safe'));
+        $this->assertTrue(function_exists('\\ShaganPlaatjies\\get_theme_option'));
     }
 
     /**
@@ -56,7 +56,7 @@ class SetupTest extends TestCase
      */
     public function it_can_check_acf_status()
     {
-        $is_active = \Shaganplaatjies\is_acf_active();
+        $is_active = \ShaganPlaatjies\is_acf_active();
         $this->assertIsBool($is_active);
     }
 }

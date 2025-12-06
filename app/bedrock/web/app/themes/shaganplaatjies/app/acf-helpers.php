@@ -5,7 +5,7 @@
  * Utility functions for working with Advanced Custom Fields
  */
 
-namespace Shaganplaatjies;
+namespace ShaganPlaatjies;
 
 /**
  * Check if ACF is Active

@@ -64,7 +64,7 @@ if (mix.inProduction()) {
  * Requires configuration in .env or mix configuration
  */
 // mix.browserSync({
-//     proxy: 'shaganplaatjies-theme.local',
+//     proxy: 'your-local-site-name.local',
 //     files: [
 //         'resources/**/*',
 //         'templates/**/*',

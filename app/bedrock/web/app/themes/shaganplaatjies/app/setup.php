@@ -5,7 +5,7 @@
  * Configuration for theme features and WordPress integration
  */
 
-namespace Shaganplaatjies;
+namespace ShaganPlaatjies;
 
 /**
  * Register Theme Support
