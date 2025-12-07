@@ -1,71 +1,58 @@
 <?php
 /**
- * Theme Index Template
+ * Theme Index Template - Iframe Wrapper for Next.js Blog
  */
 
-get_header();
+$client_app_url = get_theme_mod('client_app_url', 'https://localhost:3000');
+$iframe_url = rtrim($client_app_url, '/') . '/blog';
+
+get_header('iframe');
 ?>
 
-<div class="container mx-auto px-4 py-8">
-    <main id="main" class="max-w-4xl mx-auto">
-        <?php
-        if (have_posts()) {
-            ?>
-            <div class="space-y-8">
-                <?php
-                while (have_posts()) {
-                    the_post();
-                    ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-lg shadow-md p-6'); ?>>
-                        <header class="entry-header mb-4">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-2">
-                                <a href="<?php the_permalink(); ?>" class="hover:text-primary-600 transition-colors">
-                                    <?php the_title(); ?>
-                                </a>
-                            </h2>
-                            <div class="text-sm text-gray-600">
-                                <time datetime="<?php echo get_the_date('c'); ?>">
-                                    <?php echo get_the_date(); ?>
-                                </time>
-                                <span class="mx-2">•</span>
-                                <span>By <?php the_author(); ?></span>
-                            </div>
-                        </header>
-
-                        <div class="entry-content prose prose-lg max-w-none">
-                            <?php the_excerpt(); ?>
-                        </div>
-
-                        <footer class="entry-footer mt-4">
-                            <a href="<?php the_permalink(); ?>" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
-                                Read More
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </footer>
-                    </article>
-                    <?php
-                }
-                ?>
-            </div>
-            <?php
-            // Pagination
-            the_posts_pagination([
-                'mid_size' => 2,
-                'prev_text' => '← Previous',
-                'next_text' => 'Next →',
-            ]);
-        } else {
-            ?>
-            <div class="bg-gray-100 rounded-lg p-8 text-center">
-                <p class="text-gray-600 text-lg">No posts found.</p>
-            </div>
-            <?php
-        }
-        ?>
-    </main>
+<div id="client-app-container" style="width: 100%; height: 100vh; margin: 0; padding: 0;">
+    <iframe
+        id="client-app-iframe"
+        src="<?php echo esc_url($iframe_url); ?>"
+        style="width: 100%; height: 100%; border: none; display: block;"
+        title="Blog"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+    ></iframe>
 </div>
 
+<script>
+(function() {
+    const iframe = document.getElementById('client-app-iframe');
+
+    window.addEventListener('message', function(event) {
+        const allowedOrigins = [
+            'https://localhost:3000',
+            'http://localhost:3000',
+            'https://staging.shaganplaatjies.co.za',
+            'https://shaganplaatjies.co.za'
+        ];
+
+        if (!allowedOrigins.includes(event.origin)) return;
+
+        if (event.data.type === 'navigate') {
+            window.history.pushState({}, '', event.data.path);
+            if (event.data.title) document.title = event.data.title;
+        }
+    });
+
+    iframe.addEventListener('load', function() {
+        iframe.contentWindow.postMessage({
+            type: 'wordpress-context',
+            data: {
+                homeUrl: '<?php echo esc_js(home_url()); ?>',
+                restUrl: '<?php echo esc_js(rest_url()); ?>',
+                currentPath: '/blog',
+                postType: 'post',
+                view: 'blog-index'
+            }
+        }, '<?php echo esc_js($client_app_url); ?>');
+    });
+})();
+</script>
+
 <?php
-get_footer();
