@@ -26,7 +26,7 @@ $ErrorActionPreference = "Stop"
 # Color output function
 function Write-Success {
     param([string]$Message)
-    Write-Host "✓ $Message" -ForegroundColor Green
+    Write-Host "$Message" -ForegroundColor Green
 }
 
 function Write-Warning {
@@ -36,7 +36,7 @@ function Write-Warning {
 
 function Write-Error {
     param([string]$Message)
-    Write-Host "✗ $Message" -ForegroundColor Red
+    Write-Host "$Message" -ForegroundColor Red
 }
 
 # Load .env file if it exists

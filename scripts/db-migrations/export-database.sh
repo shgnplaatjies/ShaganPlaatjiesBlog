@@ -39,13 +39,13 @@ if command -v wp &> /dev/null; then
     # Export database
     wp db export "$FILENAME" --allow-root
 
-    echo -e "${GREEN}✓ Database exported successfully!${NC}"
+    echo -e "${GREEN}Database exported successfully!${NC}"
     echo -e "${GREEN}File: $(pwd)/$FILENAME${NC}"
     echo ""
     echo "To import this database on another environment:"
     echo "  wp db import $FILENAME"
 else
-    echo -e "${RED}✗ WP-CLI not found. Please install it first.${NC}"
+    echo -e "${RED}WP-CLI not found. Please install it first.${NC}"
     echo "Visit: https://wp-cli.org/docs/installing/"
     exit 1
 fi

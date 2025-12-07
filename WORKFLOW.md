@@ -58,7 +58,7 @@ Visual guide to the complete development and deployment workflow for your WordPr
 │     → Uploads theme to /wp-content/themes/your-theme-name/         │
 │     → Excludes: node_modules, .git, resources                      │
 │                                                                     │
-│  ✓ Workflow complete (1-2 minutes)        ────┐                    │
+│  Workflow complete (1-2 minutes)        ────┐                    │
 │                                                │                    │
 └────────────────────────────────────────────────┼────────────────────┘
                                                  │
@@ -84,7 +84,7 @@ Visual guide to the complete development and deployment workflow for your WordPr
 │  6. Browser console - no errors                                     │
 │  7. Test forms and interactions                                     │
 │                                                                     │
-│  ✓ All tests pass                         ────┐                    │
+│  All tests pass                         ────┐                    │
 │                                                │                    │
 └────────────────────────────────────────────────┼────────────────────┘
                                                  │
@@ -117,7 +117,7 @@ Visual guide to the complete development and deployment workflow for your WordPr
 │  5. Select what to push (files/database/plugins)                   │
 │  6. Execute push                                                    │
 │                                                                     │
-│  ✓ Live site updated                                               │
+│  Live site updated                                               │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```

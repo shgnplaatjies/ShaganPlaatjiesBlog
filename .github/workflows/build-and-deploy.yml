@@ -90,7 +90,7 @@ jobs:
         working-directory: ./app/bedrock
         run: |
           echo "Checking vendor directory..."
-          [ -d "vendor" ] && echo "✓ vendor directory exists" || echo "✗ vendor directory missing"
+          [ -d "vendor" ] && echo "vendor directory exists" || echo "vendor directory missing"
           ls vendor/ | head -5
 
       # ==========================================

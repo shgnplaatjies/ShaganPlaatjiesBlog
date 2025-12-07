@@ -18,9 +18,9 @@
     "jest": "jest",
     "jest:watch": "jest --watch",
     "build:production": "npm run lint && npm run jest && npm run production",
-    "build:check": "npm run production && echo '✓ Assets compiled successfully'",
-    "deploy:prepare": "npm run build:production && echo '✓ Production assets ready - next: commit and deploy via SFTP'",
-    "deploy:verify": "test -f dist/css/app.css && test -f dist/js/app.js && test -f mix-manifest.json && echo '✓ All deployment files present' || echo '✗ Missing deployment files'"
+    "build:check": "npm run production && echo 'Assets compiled successfully'",
+    "deploy:prepare": "npm run build:production && echo 'Production assets ready - next: commit and deploy via SFTP'",
+    "deploy:verify": "test -f dist/css/app.css && test -f dist/js/app.js && test -f mix-manifest.json && echo 'All deployment files present' || echo 'Missing deployment files'"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

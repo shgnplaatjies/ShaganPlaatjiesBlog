@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 
 # Check if filename is provided
 if [ -z "$1" ]; then
-    echo -e "${RED}✗ No database file specified.${NC}"
+    echo -e "${RED}No database file specified.${NC}"
     echo "Usage: ./import-database.sh <filename>"
     exit 1
 fi
@@ -26,7 +26,7 @@ FILENAME="$1"
 
 # Check if file exists
 if [ ! -f "$FILENAME" ]; then
-    echo -e "${RED}✗ File not found: $FILENAME${NC}"
+    echo -e "${RED}File not found: $FILENAME${NC}"
     exit 1
 fi
 
@@ -54,7 +54,7 @@ if command -v wp &> /dev/null; then
     # Import the database
     wp db import "$FILENAME" --allow-root
 
-    echo -e "${GREEN}✓ Database imported successfully!${NC}"
+    echo -e "${GREEN}Database imported successfully!${NC}"
 
     # Show options
     echo ""
@@ -63,7 +63,7 @@ if command -v wp &> /dev/null; then
     echo "  - Run: wp search-replace [old-url] [new-url] --allow-root (if needed)"
     echo "  - Check for media library references if necessary"
 else
-    echo -e "${RED}✗ WP-CLI not found. Please install it first.${NC}"
+    echo -e "${RED}WP-CLI not found. Please install it first.${NC}"
     echo "Visit: https://wp-cli.org/docs/installing/"
     exit 1
 fi
